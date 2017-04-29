@@ -74,13 +74,13 @@
     if(!audio) return;
     audio.currentTime = 0;
     audio.play();
-    animation.className = "key playing";
+    animation.classList.add("playing");
   });
 
   window.addEventListener('keyup', function(e) {
     const animation = document.querySelector(`div[data-key="${e.keyCode}"]`);
     if(!animation) return;
-    animation.className = "key";
+    animation.classList.remove("playing");
   })
 </script>
 
