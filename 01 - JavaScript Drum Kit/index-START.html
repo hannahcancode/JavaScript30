@@ -58,30 +58,36 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
-  // var x = document.getElementsByClassName("key");
+
   // for (i = 0; i < x.length; i++) {
   //   x[i].addEventListener("onkeypress", animation(x[i]));
   // }
 
-  // function animation(key) {
-  //   key.className = "key playing";
-  // }
+  function removeTransition(e) {
+    if(e.propertyName != "transform") return
+    this.classList.remove("playing");
+  }
 
-
-  window.addEventListener('keydown', function(e) {
+  function playSound(e) {
     const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-    const animation = document.querySelector(`div[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
     if(!audio) return;
     audio.currentTime = 0;
     audio.play();
-    animation.classList.add("playing");
-  });
+    key.classList.add("playing");
+  }
 
-  window.addEventListener('keyup', function(e) {
-    const animation = document.querySelector(`div[data-key="${e.keyCode}"]`);
-    if(!animation) return;
-    animation.classList.remove("playing");
-  })
+  window.addEventListener('keydown', playSound);
+  const keys = document.querySelectorAll(".key");
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+
+
+  // window.addEventListener('keyup', function(e) {
+  //   const animation = document.querySelector(`div[data-key="${e.keyCode}"]`);
+  //   if(!animation) return;
+  //   animation.classList.remove("playing");
+  // })
 </script>
 
 
